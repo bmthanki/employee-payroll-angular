@@ -1,0 +1,78 @@
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+
+    <div class="employees" *ngIf="employeesList">
+      <table class="table">
+        <thead class="h">
+        <tr class="h">
+          <th class="h">Name</th>
+          <th class="h">Designation</th>
+          <th class="h">Base Salary</th>
+          <th class="h">Deductions</th>
+          <th class="h">Take Home Salary</th>
+          <th class="h">Options</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="employee" (dblclick)="editEmployee(employee)" *ngFor="let employee of employeesList">
+
+          <ng-container *ngIf="!editEmployees.includes(employee); else editTD">
+            <td>{{employee.name}}</td>
+            <td>{{employee.designation}}</td>
+            <td>{{employee.basesalary}}</td>
+            <td>{{employee.deductions}}</td>
+            <td>{{employee.takehomesalary}}</td>
+          </ng-container>
+
+          <ng-template #editTD>
+            <td><input type="text" name="name" id="name" (keypress)="submitEmployee($event, employee)" [(ngModel)]="employee.name" placeholder="Name" class="form-control"></td>
+            <td><input type="text" name="designation" id="designation" (keypress)="submitEmployee($event, employee)" [(ngModel)]="employee.designation" placeholder="Designation" class="form-control"></td>
+            <td><input type="text" name="basesalary" id="basesalary" (keypress)="submitEmployee($event, employee)" [(ngModel)]="employee.basesalary" placeholder="Base Salary" class="form-control"></td>
+            <td><input type="text" name="deductions" id="deductions" (keypress)="submitEmployee($event, employee)" [(ngModel)]="employee.deductions" placeholder="Deductions" class="form-control"></td>
+            <td><input type="text" name="takehomesalary" id="takehomesalary" (keypress)="submitEmployee($event, employee)" [(ngModel)]="employee.takehomesalary" placeholder="Take Home Salary" class="form-control"></td>
+          </ng-template>
+
+          <td class="o">
+            <button class="btn btn-primary" (click)="editEmployee(employee)">
+              <i  class="fa fa-pencil"></i>
+            </button>
+            <button class="btn btn-danger" (click)="deleteEmployee(employee)">
+              <i  class="fa fa-trash"></i>
+            </button>
+          </td>
+
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+    <form>
+      <div class="form-row">
+
+        <div class="col-md-2">
+          <input type="text"  name="name" id="name" [(ngModel)]="newEmployee.name" placeholder="Name" class="form-control">
+        </div>
+        <div class="col-md-2">
+          <input type="text"  name="designation" id="designation" [(ngModel)]="newEmployee.designation" placeholder="Designation" class="form-control">
+        </div>
+        <div class="col-md-2">
+          <input type="text" name="basesalary" id="basesalary" [(ngModel)]="newEmployee.basesalary" placeholder="Base Salary" class="form-control">
+        </div>
+        <div class="col-md-2">
+          <input type="text" name="deductions" id="deductions" [(ngModel)]="newEmployee.deductions" placeholder="Deductions" class="form-control">
+        </div>
+        <div class="col-md-2">
+          <input type="text" name="takehomesalary" id="takehomesalary" [(ngModel)]="newEmployee.takehomesalary" placeholder="Take Home Salary" class="form-control">
+        </div>
+        <div class="col-md-2">
+          <button type="submit" class="btn btn-primary" (click)="create()">Add</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-1">
+
+  </div>
+</div>
