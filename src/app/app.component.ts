@@ -25,8 +25,9 @@ export class AppComponent implements OnInit {
   // An Empty list for the visible todo list
   employeesList: Employee[];
 
+  message = '';
 
-  showMe = false;
+  hideme = [];
 
   ngOnInit(): void {
 
@@ -46,6 +47,7 @@ export class AppComponent implements OnInit {
       .subscribe((res) => {
         this.employeesList.push(res.data);
         this.newEmployee = new Employee();
+        this.message = res.message;
       });
   }
 
@@ -57,38 +59,35 @@ export class AppComponent implements OnInit {
       } else {
         this.editEmployees.splice(this.editEmployees.indexOf(employee), 1);
         this.employeeService.editEmployee(employee).subscribe(res => {
-          console.log('Update Succesful');
+          this.message = 'Update Successful';
         }, err => {
-          this.editEmployee(employee);
-          console.error('Update Unsuccesful');
+          // this.editEmployee(employee);
+          this.message = 'Update Unsuccessful. Please try again.';
         });
       }
     }
   }
 
 
-  editDeductions() {
-
-    if (this.showMe == true) {
-      this.showMe = false;
-    } else {
-      this.showMe = true;
-    }
-
-  }
 
   createDeductions(employee, newDeductions) {
     employee.deductions.push(newDeductions);
     this.employeeService.createDeductions(employee)
       .subscribe((res) => {
+        this.employeesList.splice(this.employeesList.indexOf(employee), 1);
         this.employeesList.push(res.data);
-        this.newEmployee = new Employee();
+        this.newDeductions = new Deductions();
+        this.message = res.message;
       });
   }
 
-  deleteDeductions(employee) {
-
+  deleteDeduction(employee, deduction ) {
     console.log(employee);
+    console.log(deduction);
+    const emp = employee.deductions.splice(employee.deductions.indexOf(employee._id), 1);
+    this.employeeService.createDeductions(employee).subscribe(res => {
+      this.message = res.message;
+    });
 
   }
 
@@ -101,6 +100,9 @@ export class AppComponent implements OnInit {
   deleteEmployee(employee: Employee) {
     this.employeeService.deleteEmployee(employee._id).subscribe(res => {
       this.employeesList.splice(this.employeesList.indexOf(employee), 1);
+      this.message = res.message;
     });
   }
 }
+
+
