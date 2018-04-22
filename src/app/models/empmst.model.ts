@@ -3,19 +3,27 @@ class Employee {
   name: string;
   designation: string;
   basesalary: number;
-  deductions: number;
+  deductions: Deductions;
   takehomesalary: number;
-  status: string;
 
   constructor(
   ) {
     this.name = '';
     this.designation = '';
     this.basesalary = 0;
-    this.deductions = 0;
+    this.deductions = new Deductions();
     this.takehomesalary = 0;
-    this.status = '';
   }
 }
 
+export class Deductions {
+  deduction: string;
+  amount: number;
+
+  constructor(
+  ) {
+    this.deduction = '';
+    this.amount = 0;
+  }
+}
 export default Employee;

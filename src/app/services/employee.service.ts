@@ -11,8 +11,9 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class EmployeeService {
 
-  api_url = 'https://datis-emp.herokuapp.com';
+  api_url = 'http://localhost:3000';
   EmployeeUrl = `${this.api_url}/api/employees`;
+  DeductionUrl = `${this.api_url}/api/employees/deduction`;
 
   constructor(
     private http: HttpClient
@@ -48,6 +49,12 @@ export class EmployeeService {
       .map(res  => {
         return res;
       });
+  }
+
+  // Create todo, takes a Employee Object
+  createDeductions(employee: Employee): Observable<any> {
+    // returns the observable of http post request
+    return this.http.post(`${this.DeductionUrl}`, employee);
   }
 
   // Default Error handling method.

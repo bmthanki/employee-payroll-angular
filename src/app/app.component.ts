@@ -1,7 +1,8 @@
 import { Response } from '@angular/http';
 import { EmployeeService } from './services/employee.service';
-import Employee from './models/empmst.model';
+import Employee, {Deductions} from './models/empmst.model';
 import { Component, OnInit } from '@angular/core';
+import {forEach} from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   editEmployees: Employee[] = [];
-
   constructor(
     // Private todoservice will be injected into the component by Angular Dependency Injector
     private employeeService: EmployeeService
@@ -19,9 +19,14 @@ export class AppComponent implements OnInit {
   // Declaring the new todo Object and initilizing it
   public newEmployee: Employee = new Employee();
 
+  // Declaring the new todo Object and initilizing it
+  public newDeductions: Deductions = new Deductions();
+
   // An Empty list for the visible todo list
   employeesList: Employee[];
 
+
+  showMe = false;
 
   ngOnInit(): void {
 
@@ -61,14 +66,30 @@ export class AppComponent implements OnInit {
     }
   }
 
-  doneEmployee(employee: Employee) {
-    employee.status = 'Done';
-    this.employeeService.editEmployee(employee).subscribe(res => {
-      console.log('Update Succesful');
-    }, err => {
-      this.editEmployee(employee);
-      console.error('Update Unsuccesful');
-    });
+
+  editDeductions() {
+
+    if (this.showMe == true) {
+      this.showMe = false;
+    } else {
+      this.showMe = true;
+    }
+
+  }
+
+  createDeductions(employee, newDeductions) {
+    employee.deductions.push(newDeductions);
+    this.employeeService.createDeductions(employee)
+      .subscribe((res) => {
+        this.employeesList.push(res.data);
+        this.newEmployee = new Employee();
+      });
+  }
+
+  deleteDeductions(employee) {
+
+    console.log(employee);
+
   }
 
   submitEmployee(event, employee: Employee) {

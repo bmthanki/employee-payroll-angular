@@ -21,9 +21,11 @@
             <td>{{employee.name}}</td>
             <td>{{employee.designation}}</td>
             <td>{{employee.basesalary}}</td>
-            <td>{{employee.deductions}}</td>
+            <td>{{employee.basesalary-employee.takehomesalary}}</td>
             <td>{{employee.takehomesalary}}</td>
           </ng-container>
+
+
 
           <ng-template #editTD>
             <td><input type="text" name="name" id="name" (keypress)="submitEmployee($event, employee)" [(ngModel)]="employee.name" placeholder="Name" class="form-control"></td>
@@ -34,6 +36,9 @@
           </ng-template>
 
           <td class="o">
+            <button class="btn btn-primary" (click)="editDeductions()">
+              <i  class="fa fa-plus"></i>
+            </button>
             <button class="btn btn-primary" (click)="editEmployee(employee)">
               <i  class="fa fa-pencil"></i>
             </button>
@@ -42,7 +47,38 @@
             </button>
           </td>
 
+
         </tr>
+
+        <tr class="employee" *ngFor="let employee of employeesList">
+          <td colspan="6">
+          <div *ngIf="showMe">
+            <div>
+              <ng-container *ngFor="let d of employee.deductions">
+                  <td colspan=6>{{d.deduction}}</td>
+                  <td colspan=6>{{d.amount}}</td>
+          </ng-container>
+          </div>
+
+
+          <div class="form-row">
+
+            <div class="col-md-1"></div>
+            <div class="col-md-4">
+              <input type="text"  name="deductions.deduction" id="deductions.deduction" [(ngModel)]="newDeductions.deduction" placeholder="Deductions" class="form-control">
+            </div>
+            <div class="col-md-4">
+              <input type="text"  name="deductions.amount" id="deductions.amount" [(ngModel)]="newDeductions.amount" placeholder="Amount" class="form-control">
+            </div>
+            <div class="col-md-2">
+              <button type="submit" class="btn btn-primary" (click)="createDeductions(employee,newDeductions)">Add</button>
+            </div>
+            <div class="col-md-1"></div>
+          </div>
+          </div>
+          </td>
+        </tr>
+
         </tbody>
       </table>
     </div>
@@ -51,17 +87,14 @@
     <form>
       <div class="form-row">
 
-        <div class="col-md-2">
+        <div class="col-md-3">
           <input type="text"  name="name" id="name" [(ngModel)]="newEmployee.name" placeholder="Name" class="form-control">
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
           <input type="text"  name="designation" id="designation" [(ngModel)]="newEmployee.designation" placeholder="Designation" class="form-control">
         </div>
         <div class="col-md-2">
           <input type="text" name="basesalary" id="basesalary" [(ngModel)]="newEmployee.basesalary" placeholder="Base Salary" class="form-control">
-        </div>
-        <div class="col-md-2">
-          <input type="text" name="deductions" id="deductions" [(ngModel)]="newEmployee.deductions" placeholder="Deductions" class="form-control">
         </div>
         <div class="col-md-2">
           <input type="text" name="takehomesalary" id="takehomesalary" [(ngModel)]="newEmployee.takehomesalary" placeholder="Take Home Salary" class="form-control">
