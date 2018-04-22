@@ -43,6 +43,7 @@ export class AppComponent implements OnInit {
   // This method will get called on Create button event
 
   create() {
+    console.log(this.newEmployee)
     this.employeeService.createEmployee(this.newEmployee)
       .subscribe((res) => {
         this.employeesList.push(res.data);
