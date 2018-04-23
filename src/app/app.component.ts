@@ -85,7 +85,7 @@ export class AppComponent implements OnInit {
   deleteDeduction(employee, deduction ) {
     console.log(employee);
     console.log(deduction);
-    const emp = employee.deductions.splice(employee.deductions.indexOf(employee._id), 1);
+    const emp = employee.deductions.splice(employee.deductions.indexOf(deduction), 1);
     this.employeeService.createDeductions(employee).subscribe(res => {
       this.message = res.message;
     });
