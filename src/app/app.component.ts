@@ -75,8 +75,9 @@ export class AppComponent implements OnInit {
     employee.deductions.push(newDeductions);
     this.employeeService.createDeductions(employee)
       .subscribe((res) => {
+        const index = this.employeesList.indexOf(employee);
         this.employeesList.splice(this.employeesList.indexOf(employee), 1);
-        this.employeesList.push(res.data);
+        this.employeesList.splice(index, 0, res.data)
         this.newDeductions = new Deductions();
         this.message = res.message;
       });
@@ -104,6 +105,8 @@ export class AppComponent implements OnInit {
       this.message = res.message;
     });
   }
+
+
 }
 
 
