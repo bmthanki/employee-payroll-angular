@@ -15,8 +15,8 @@
           <th class="h">Options</th>
         </tr>
         </thead>
-        <tbody>
-        <tr class="employee" (dblclick)="editEmployee(employee)" *ngFor="let employee of employeesList;let i=index">
+        <tbody *ngFor="let employee of employeesList;let i=index">
+        <tr class="employee" (dblclick)="editEmployee(employee)" >
 
           <ng-container *ngIf="!editEmployees.includes(employee); else editTD">
             <td>{{employee.name}}</td>
@@ -52,16 +52,14 @@
               <i class="fa fa-trash"></i>
             </button>
           </td>
-
-          <td [hidden] ="!hideme[i]">
-
-            <div>
-              <ng-container *ngFor="let d of employee.deductions">
+        </tr>
+        <td [hidden] ="!hideme[i]" colspan="6" align="center">
+        <ng-container *ngFor="let d of employee.deductions" align="left">
 
         <tr>
-          <td colspan="2">{{d.deduction}}</td>
-          <td colspan="2">{{d.amount}}</td>
-          <td colspan="6">
+          <td>{{d.deduction}}</td>
+          <td>{{d.amount}}</td>
+          <td>
             <button class="btn btn-danger" (click)="deleteDeduction(employee,d)">
               <i class="fa fa-trash"></i>
             </button>
@@ -69,7 +67,7 @@
         </tr>
         </ng-container>
 
-
+        <tr>
         <div class="form-row">
 
           <div class="col-md-1"></div>
@@ -88,10 +86,8 @@
           </div>
           <div class="col-md-1"></div>
         </div>
-    </div>
+        </tr>
     </td>
-    </tr>
-
     </tbody>
     </table>
   </div>
