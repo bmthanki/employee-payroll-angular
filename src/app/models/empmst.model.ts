@@ -3,14 +3,18 @@ class Employee {
   name: string;
   designation: string;
   basesalary: number;
+  taxamount: Number;
+  deductiontotal: Number;
   deductions: Deductions;
-  takehomesalary: number;
+  takehomesalary: Number;
 
   constructor(
   ) {
     this.name = '';
     this.designation = '';
     this.basesalary = 0;
+    this.taxamount = 0;
+    this.deductiontotal = 0;
     this.deductions = new Deductions();
     this.takehomesalary = 0;
   }

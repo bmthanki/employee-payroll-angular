@@ -1,7 +1,6 @@
 import Employee from '../models/empmst.model';
 import { Observable } from 'rxjs/Rx';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import {Response} from '@angular/http';
 import { Injectable } from '@angular/core';
 
 // RxJS operator for mapping the observable
@@ -11,7 +10,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class EmployeeService {
 
-  api_url = 'https://datis-emp.herokuapp.com';
+  api_url = 'http://localhost:3000';
   EmployeeUrl = `${this.api_url}/api/employees`;
   DeductionUrl = `${this.api_url}/api/employees/deduction`;
 
@@ -20,13 +19,13 @@ export class EmployeeService {
   ) { }
 
 
-  // Create todo, takes a Employee Object
+  // Create Employee, takes a Employee Object
   createEmployee(employee: Employee): Observable<any> {
     // returns the observable of http post request
     return this.http.post(`${this.EmployeeUrl}`, employee);
   }
 
-  // Read todo, takes no arguments
+  // Read Employee, takes no arguments
   getEmployees(): Observable<Employee[]> {
     return this.http.get(this.EmployeeUrl)
       .map(res  => {
@@ -35,7 +34,7 @@ export class EmployeeService {
         return res['data'].docs as Employee[];
       });
   }
-  // Update todo, takes a Employee Object as parameter
+  // Update Employee, takes a Employee Object as parameter
   editEmployee(employee: Employee) {
     const editUrl = `${this.EmployeeUrl}`;
     // returns the observable of http put request
@@ -51,9 +50,7 @@ export class EmployeeService {
       });
   }
 
-
-
-  // Create todo, takes a Employee Object
+  // Create Deduction, takes a Employee Object
   createDeductions(employee: Employee): Observable<any> {
     // returns the observable of http post request
     return this.http.post(`${this.DeductionUrl}`, employee);
