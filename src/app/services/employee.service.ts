@@ -36,12 +36,8 @@ export class EmployeeService {
   }
   // Update Employee, takes a Employee Object as parameter
   editEmployee(employee: Employee) {
-    const editUrl = `${this.EmployeeUrl}`;
     // returns the observable of http put request
-    return this.http.put(editUrl, employee)
-      .map(res  => {
-        return res;
-      });
+    return this.http.put(`${this.EmployeeUrl}`, employee);
   }
 
   deleteEmployee(id: string): any {

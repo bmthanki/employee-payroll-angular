@@ -43,9 +43,10 @@ export class AppComponent implements OnInit {
   // This method will get called on Create button event
 
   create() {
-    console.log(this.newEmployee)
+    console.log(this.newEmployee);
     this.employeeService.createEmployee(this.newEmployee)
       .subscribe((res) => {
+        res.
         this.employeesList.push(res.data);
         this.newEmployee = new Employee();
         this.message = res.message;
@@ -59,9 +60,9 @@ export class AppComponent implements OnInit {
         this.editEmployees.push(employee);
       } else {
         this.editEmployees.splice(this.editEmployees.indexOf(employee), 1);
-        this.employeeService.editEmployee(employee).subscribe(res => {
-          // this.employeesList.splice(this.employeesList.indexOf(employee), 1);
-          // this.employeesList.splice(this.employeesList.indexOf(employee), 0, res.data);
+        this.employeeService.editEmployee(employee).subscribe((res) => {
+          this.employeesList.splice(this.employeesList.indexOf(employee), 1);
+          this.employeesList.splice(this.employeesList.indexOf(employee), 0, this.setEmployeeData(employee));
           this.message = 'Update Successful';
         }, err => {
           // this.editEmployee(employee);
@@ -78,7 +79,7 @@ export class AppComponent implements OnInit {
     this.employeeService.createDeductions(employee)
       .subscribe((res) => {
         this.employeesList.splice(this.employeesList.indexOf(employee), 1);
-        this.employeesList.splice(this.employeesList.indexOf(employee), 0, res.data)
+         this.employeesList.splice(this.employeesList.indexOf(employee), 0, res.data);
         this.newDeductions = new Deductions();
         this.message = res.message;
       });
@@ -90,7 +91,7 @@ export class AppComponent implements OnInit {
     const emp = employee.deductions.splice(employee.deductions.indexOf(deduction), 1);
     this.employeeService.createDeductions(employee).subscribe(res => {
       this.employeesList.splice(this.employeesList.indexOf(employee), 1);
-      this.employeesList.splice(this.employeesList.indexOf(employee), 0, res.data)
+      this.employeesList.splice(this.employeesList.indexOf(employee), 0, res.data);
       this.message = res.message;
     });
 
@@ -109,6 +110,20 @@ export class AppComponent implements OnInit {
     });
   }
 
+  setEmployeeData(employee) {
+    // temp data
+    let taxamount = employee.basesalary * Number((0.1));
+    taxamount = Number(taxamount.toFixed(2))
+    let deductiontotal = 0;
+    for (let i = 0; i < employee.deductions.length; i++) {
+      deductiontotal = Number(deductiontotal) + Number(employee.deductions[i].amount);
+    }
+    const takehomesalary = (+employee.basesalary) - (+taxamount - +deductiontotal);
+    employee.taxamount = taxamount,
+    employee.deductiontotal = deductiontotal,
+    employee.takehomesalary = takehomesalary;
+    return employee;
+  }
 
 }
 
