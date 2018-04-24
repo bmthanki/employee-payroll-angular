@@ -61,8 +61,9 @@ export class AppComponent implements OnInit {
       } else {
         this.editEmployees.splice(this.editEmployees.indexOf(employee), 1);
         this.employeeService.editEmployee(employee).subscribe((res) => {
-          this.employeesList.splice(this.employeesList.indexOf(employee), 1);
-          this.employeesList.splice(this.employeesList.indexOf(employee), 0, this.setEmployeeData(employee));
+          const index = this.employeesList.indexOf(employee)
+          this.employeesList.splice(index, 1);
+          this.employeesList.splice(index, 0, this.setEmployeeData(employee));
           this.message = 'Update Successful';
         }, err => {
           // this.editEmployee(employee);
@@ -78,8 +79,9 @@ export class AppComponent implements OnInit {
     employee.deductions.push(newDeductions);
     this.employeeService.createDeductions(employee)
       .subscribe((res) => {
-        this.employeesList.splice(this.employeesList.indexOf(employee), 1);
-         this.employeesList.splice(this.employeesList.indexOf(employee), 0, res.data);
+        const index = this.employeesList.indexOf(employee)
+        this.employeesList.splice(index, 1);
+        this.employeesList.splice(index, 0, res.data);
         this.newDeductions = new Deductions();
         this.message = res.message;
       });
@@ -90,8 +92,9 @@ export class AppComponent implements OnInit {
     console.log(deduction);
     const emp = employee.deductions.splice(employee.deductions.indexOf(deduction), 1);
     this.employeeService.createDeductions(employee).subscribe(res => {
-      this.employeesList.splice(this.employeesList.indexOf(employee), 1);
-      this.employeesList.splice(this.employeesList.indexOf(employee), 0, res.data);
+      const index = this.employeesList.indexOf(employee)
+      this.employeesList.splice(index, 1);
+      this.employeesList.splice(index, 0, res.data);
       this.message = res.message;
     });
 
