@@ -10,7 +10,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class EmployeeService {
 
-  api_url = 'http://localhost:3000';
+  api_url = 'http://datis-emp.herokuapp.com';
   EmployeeUrl = `${this.api_url}/api/employees`;
   DeductionUrl = `${this.api_url}/api/employees/deduction`;
 
