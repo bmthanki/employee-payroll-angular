@@ -47,7 +47,6 @@ export class AppComponent implements OnInit {
     console.log(this.newEmployee);
     this.employeeService.createEmployee(this.newEmployee)
       .subscribe((res) => {
-        res.
         this.employeesList.push(res.data);
         this.newEmployee = new Employee();
         this.message = res.message;
