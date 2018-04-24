@@ -82,7 +82,7 @@
                    placeholder="Deductions" #deduction= "ngModel" class="form-control">
           </div>
           <div class="col-md-4">
-            <input type="text" name="amount" id="amount" required pattern="^[0-9]{1,5}"  ng-pattern-restrict [(ngModel)]="newDeductions.amount" placeholder="Amount" #amount="ngModel" class="form-control">
+            <input type="text" name="amount" id="amount" required pattern="^[0-9]{1,6}"  ng-pattern-restrict [(ngModel)]="newDeductions.amount" placeholder="Amount" #amount="ngModel" class="form-control">
           </div>
           <div class="col-md-2">
             <button type="submit" class="btn btn-primary" [disabled]="!deductions.form.valid" (click)="createDeductions(employee,newDeductions)">Add
@@ -140,7 +140,7 @@
                placeholder="Designation" #designation="ngModel" class="form-control">
       </div>
       <div class="col-md-2">
-        <input type="text" name="basesalary" id="basesalary" required pattern="^[0-9]{1,5}" ng-pattern-restrict [(ngModel)]="newEmployee.basesalary" placeholder="Base Salary" #basesalary="ngModel" class="form-control">
+        <input type="text" name="basesalary" id="basesalary" required pattern="^[0-9]{1,7}" ng-pattern-restrict [(ngModel)]="newEmployee.basesalary" placeholder="Base Salary" #basesalary="ngModel" class="form-control">
       </div>
       <div class="col-md-2">
         <button type="submit" class="btn btn-primary" [disabled]="!employee.form.valid" (click)="create()">Add</button>
