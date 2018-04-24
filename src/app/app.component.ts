@@ -12,17 +12,17 @@ import {forEach} from '@angular/router/src/utils/collection';
 export class AppComponent implements OnInit {
   editEmployees: Employee[] = [];
   constructor(
-    // Private todoservice will be injected into the component by Angular Dependency Injector
+    // Private employeeservice will be injected into the component by Angular Dependency Injector
     private employeeService: EmployeeService
   ) { }
 
-  // Declaring the new todo Object and initilizing it
+  // Declaring the new employee Object and initilizing it
   public newEmployee: Employee = new Employee();
 
-  // Declaring the new todo Object and initilizing it
+  // Declaring the new employee Object and initilizing it
   public newDeductions: Deductions = new Deductions();
 
-  // An Empty list for the visible todo list
+  // An Empty list for the visible employee list
   employeesList: Employee[];
 
   message = '';
@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
     // At component initialization the
     this.employeeService.getEmployees()
       .subscribe(employees => {
-        // assign the todolist property to the proper http response
+        // assign the employeelist property to the proper http response
         this.employeesList = employees;
         console.log(employees);
       });
