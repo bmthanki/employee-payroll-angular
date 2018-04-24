@@ -2,6 +2,7 @@
   <div class="col-md-1"></div>
   <div class="col-md-10">
     <span class="alert alert-primary" *ngIf="message!=''">{{message}}</span>
+    <span class="alert alert-primary" *ngIf="deductionmessage!=''">{{deductionmessage}}</span>
     <br/>
     <div class="employees" *ngIf="employeesList">
       <table class="table">
@@ -81,29 +82,44 @@
                    placeholder="Deductions" #deduction= "ngModel" class="form-control">
           </div>
           <div class="col-md-4">
-            <input type="text" name="amount" id="amount" required pattern="^[0-9]{1,5}" ng-pattern-restrict [(ngModel)]="newDeductions.amount" placeholder="Amount" #amount="ngModel" class="form-control">
+            <input type="text" name="amount" id="amount" required pattern="^[0-9]{1,5}"  ng-pattern-restrict [(ngModel)]="newDeductions.amount" placeholder="Amount" #amount="ngModel" class="form-control">
           </div>
           <div class="col-md-2">
             <button type="submit" class="btn btn-primary" [disabled]="!deductions.form.valid" (click)="createDeductions(employee,newDeductions)">Add
             </button>
           </div>
           <div class="col-md-1"></div>
-		  <div *ngIf="deduction.errors && (deduction.dirty || deduction.touched)" class="alert alert-danger">
-        <div [hidden]="!deduction.errors.required" >
-          Deduction Name is required!
-        </div>
-		<div [hidden]="!deduction.errors.ng-pattern" >
-          Deduction Name can be only alphanumeric!
-        </div>
-		</div>
-		<div *ngIf="amount.errors && (amount.dirty || amount.touched)" class="alert alert-danger">
-        <div [hidden]="!amount.errors.required" >
-          Deduction Amount is required!
-        </div>
-		<div [hidden]="!amount.errors.ng-pattern" >
-          Enter only digits for Deduction Amount!
-        </div>
-		</div>
+
+
+          <div class="col-md-1"></div>
+          <div class="col-md-4">
+            <div *ngIf="deduction.errors && (deduction.dirty || deduction.touched)" class="alert alert-danger">
+              <div [hidden]="!deduction.errors.required" >
+                Deduction Name is required!
+              </div>
+              <div [hidden]="!deduction.errors.ng-pattern" >
+                Deduction Name can be only alphanumeric!
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div *ngIf="amount.errors && (amount.dirty || amount.touched)" class="alert alert-danger">
+              <div [hidden]="!amount.errors.required" >
+                Deduction Amount is required!
+              </div>
+              <div [hidden]="!amount.errors.ng-pattern" >
+                Enter only digits for Deduction Amount!
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+
+          </div>
+
+
+
+
+
         </div>
 		</form>
         </tr>
@@ -130,33 +146,39 @@
         <button type="submit" class="btn btn-primary" [disabled]="!employee.form.valid" (click)="create()">Add</button>
       </div>
     </div>
-	<td colspan="10">
-	  <div *ngIf="ename.errors && (ename.dirty || ename.touched)" class="alert alert-danger">
+
+    <div class="form-row">
+    <div class="col-md-3">
+      <div *ngIf="ename.errors && (ename.dirty || ename.touched)" class="alert alert-danger">
         <div [hidden]="!ename.errors.required" >
           Name is required!
         </div>
-		<div [hidden]="!ename.errors.ng-pattern" >
+        <div [hidden]="!ename.errors.ng-pattern" >
           Enter only alphabets in Name !
         </div>
-		</div>
-	</td>
-	<td colspan="10">
-	<div *ngIf="designation.errors && (designation.dirty || designation.touched)" class="alert alert-danger">
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div *ngIf="designation.errors && (designation.dirty || designation.touched)" class="alert alert-danger">
         <div [hidden]="!designation.errors.required" >
           Designation is required!
         </div>
-	</div>
-	</td>
-	<td colspan="10">
-	<div *ngIf="basesalary.errors && (basesalary.dirty || basesalary.touched)" class="alert alert-danger">
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div *ngIf="basesalary.errors && (basesalary.dirty || basesalary.touched)" class="alert alert-danger">
         <div [hidden]="!basesalary.errors.required" >
           Base Salary is required!
         </div>
-	<div [hidden]="!basesalary.errors.ng-pattern" >
+        <div [hidden]="!basesalary.errors.ng-pattern" >
           Enter only digits for Salary!
         </div>
-	</div>
-	</td>
+      </div>
+    </div>
+    <div class="col-md-2">
+
+    </div>
+    </div>
   </form>
 
 

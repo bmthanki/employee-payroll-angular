@@ -26,6 +26,7 @@ export class AppComponent implements OnInit {
   employeesList: Employee[];
 
   message = '';
+  deductionmessage = '';
 
   hideme = [];
 
@@ -61,7 +62,7 @@ export class AppComponent implements OnInit {
       } else {
         this.editEmployees.splice(this.editEmployees.indexOf(employee), 1);
         this.employeeService.editEmployee(employee).subscribe((res) => {
-          const index = this.employeesList.indexOf(employee)
+          const index = this.employeesList.indexOf(employee);
           this.employeesList.splice(index, 1);
           this.employeesList.splice(index, 0, this.setEmployeeData(employee));
           this.message = 'Update Successful';
@@ -76,10 +77,14 @@ export class AppComponent implements OnInit {
 
 
   createDeductions(employee, newDeductions) {
+    if (Number(employee.deductiontotal) + Number(newDeductions.amount) > Number(employee.taxamount)) {
+      this.deductionmessage = 'Deduction cannot be greater than tax';
+      return false;
+    }
     employee.deductions.push(newDeductions);
     this.employeeService.createDeductions(employee)
       .subscribe((res) => {
-        const index = this.employeesList.indexOf(employee)
+        const index = this.employeesList.indexOf(employee);
         this.employeesList.splice(index, 1);
         this.employeesList.splice(index, 0, res.data);
         this.newDeductions = new Deductions();
@@ -92,7 +97,7 @@ export class AppComponent implements OnInit {
     console.log(deduction);
     const emp = employee.deductions.splice(employee.deductions.indexOf(deduction), 1);
     this.employeeService.createDeductions(employee).subscribe(res => {
-      const index = this.employeesList.indexOf(employee)
+      const index = this.employeesList.indexOf(employee);
       this.employeesList.splice(index, 1);
       this.employeesList.splice(index, 0, res.data);
       this.message = res.message;
@@ -116,7 +121,7 @@ export class AppComponent implements OnInit {
   setEmployeeData(employee) {
     // temp data
     let taxamount = employee.basesalary * Number((0.1));
-    taxamount = Number(taxamount.toFixed(2))
+    taxamount = Number(taxamount.toFixed(2));
     let deductiontotal = 0;
     for (let i = 0; i < employee.deductions.length; i++) {
       deductiontotal = Number(deductiontotal) + Number(employee.deductions[i].amount);
