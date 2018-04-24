@@ -38,7 +38,10 @@ export class EmployeeService {
   editEmployee(employee: Employee) {
     const editUrl = `${this.EmployeeUrl}`;
     // returns the observable of http put request
-    return this.http.put(editUrl, employee);
+    return this.http.put(editUrl, employee)
+      .map(res  => {
+        return res;
+      });
   }
 
   deleteEmployee(id: string): any {

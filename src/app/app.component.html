@@ -36,8 +36,10 @@
                        [(ngModel)]="employee.designation" placeholder="Designation" class="form-control"></td>
             <td><input type="text" name="basesalary" id="basesalary" (keypress)="submitEmployee($event, employee)"
                        [(ngModel)]="employee.basesalary" placeholder="Base Salary" class="form-control"></td>
+            <td><input type="text" name="taxamount" id="taxamount" (keypress)="submitEmployee($event, employee)"
+                       [(ngModel)]="employee.taxamount" placeholder="Tax Amount" class="form-control" readonly></td>
             <td><input type="text" name="deductions" id="deductions" (keypress)="submitEmployee($event, employee)"
-                       [(ngModel)]="employee.deductions" placeholder="Deductions" class="form-control" readonly></td>
+                       [(ngModel)]="employee.deductiontotal" placeholder="Deduction Total" class="form-control" readonly></td>
             <td><input type="text" name="takehomesalary" id="takehomesalary"
                        (keypress)="submitEmployee($event, employee)" [(ngModel)]="employee.takehomesalary"
                        placeholder="Take Home Salary" class="form-control" readonly></td>
